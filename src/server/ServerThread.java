@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 class ServerThread extends Thread{
 
     String line=null;
-    BufferedReader  is = null;
+    Scanner is = null;
     PrintWriter os=null;
     Socket s=null;
 
@@ -18,7 +19,7 @@ class ServerThread extends Thread{
 
     public void run() {
         try{
-            is= new BufferedReader(new InputStreamReader(s.getInputStream()));
+            is= new Scanner(new InputStreamReader(s.getInputStream()));
             os=new PrintWriter(s.getOutputStream());
 
         }catch(IOException e){
@@ -26,19 +27,19 @@ class ServerThread extends Thread{
         }
 
         try {
-            line=is.readLine();
+            line=is.nextLine();
             while(line.compareTo("QUIT")!=0){
 
                 os.println(line);
                 os.flush();
                 System.out.println("Response to Client  :  "+line);
-                line=is.readLine();
+                line=is.nextLine();
             }
-        } catch (IOException e) {
+        } /*catch (Exception e) {
 
             line=this.getName(); //reused String line for getting thread name
             System.out.println("IO Error/ Client "+line+" terminated abruptly");
-        }
+        }*/
         catch(NullPointerException e){
             line=this.getName(); //reused String line for getting thread name
             System.out.println("Client "+line+" Closed");
