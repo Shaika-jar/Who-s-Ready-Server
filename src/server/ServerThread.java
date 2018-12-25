@@ -61,11 +61,17 @@ public class ServerThread extends Thread{
             this.setName(line);
             new Client(line, this);
             System.out.println("Client added");
+
+            /*
+            //Clients Sehen wer online isr und so
             for(Client u: Verwaltung.user){
                 if(!u.equals(c))
-                    c.recieveMessage(u.getName()+" ist online");
+                    //c.recieveMessage(u.getName()+" ist online");
             }
             c.sendMessageToAll("joined the chatroom");
+            */
+
+
             System.out.println("Chat sended");
             while(line.compareTo("QUIT")!=0){
 
